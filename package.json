@@ -1,6 +1,6 @@
 {
   "name": "read-options-file",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Read options from setting with APP config",
   "main": "index.js",
   "scripts": {

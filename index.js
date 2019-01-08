@@ -51,7 +51,6 @@ function initParam(argName, defaultValue) {
 }
 
 function load(fileName /*, configDir*/) {
-  console.log(process.env)
   NODE_ENV = initParam('NODE_ENV', 'development')
   APP_CONFIG_ENV = initParam('APP_CONFIG_ENV', NODE_ENV)
   APP_CONFIG_DIR = /*configDir || */ initParam(
