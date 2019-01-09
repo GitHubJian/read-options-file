@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const extend = require('extend-shallow')
+const merge = require('deepmerge')
 const root = process.cwd()
 
 const APP_CONFIG_FOLDER = 'setting'
@@ -20,9 +20,18 @@ function getCmdLineArg(searchFor) {
   return false
 }
 
+// function mergeOptions2() {
+//   let args = Array.prototype.slice.call(arguments)
+//   let res = extend(...args)
+
+//   return res
+// }
+
+const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray
+
 function mergeOptions() {
   let args = Array.prototype.slice.call(arguments)
-  let res = extend(...args)
+  let res = merge(...args, { arrayMerge: overwriteMerge })
 
   return res
 }

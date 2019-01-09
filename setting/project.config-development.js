@@ -9,5 +9,8 @@ module.exports = {
       c1: 2
     }
   },
-  a3: [{ a1: 1 }, { a6: 6 }]
+  a3: {
+    b1: false,
+    a1: [{ a1: 2 }]
+  }
 }
