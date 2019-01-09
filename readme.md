@@ -3,14 +3,14 @@
 >读取根目录下 Setting 目录中的配置文件
 NODE_ENV 或者 APP_CONFIG_ENV 当前环境
 APP_CONFIG_INSTANCE 当前实例对象
-
-如果当前环境 NODE_ENV 是 production，则APP_CONFIG_INSTANCE 无效
-if NODE_ENV === production, APP_CONFIG_INSTANCE is useless
+APP_CONFIG_ENABLED 开启各环境实例 default: false
 
 
 ```
 export APP_CONFIG_ENV="development"
 export APP_CONFIG_INSTANCE="xiaows"
+export APP_CONFIG_ENABLED="true"
+
 const config = require('read-options-file').load('project.config.js')
 ```
 

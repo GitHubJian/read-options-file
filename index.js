@@ -5,7 +5,6 @@ const root = process.cwd()
 
 const APP_CONFIG_FOLDER = 'setting'
 const SEPARATOR = '-'
-let NODE_ENV, APP_CONFIG_ENV, APP_CONFIG_DIR, APP_CONFIG_INSTANCE
 
 function getCmdLineArg(searchFor) {
   let cmdLineArgs = process.argv.slice(2, process.argv.length),
@@ -48,7 +47,7 @@ function parseFile(fullFilename) {
 
     return configObject
   } catch (e) {
-    console.warn(`[AppConfig Warn]: File Not Found, \n${fullFilename}`)
+    console.warn(`[Read-Options-File Warn]: File Not Found, \n${fullFilename}`)
     return {}
   }
 }
@@ -60,8 +59,15 @@ function initParam(argName, defaultValue) {
 }
 
 function load(fileName /*, configDir*/) {
+  let NODE_ENV,
+    APP_CONFIG_ENV, // 环境
+    APP_CONFIG_DIR, // 目录
+    APP_CONFIG_INSTANCE, // instance 名称
+    APP_CONFIG_ENABLED // 开启
+
   NODE_ENV = initParam('NODE_ENV', 'development')
   APP_CONFIG_ENV = initParam('APP_CONFIG_ENV', NODE_ENV)
+  APP_CONFIG_ENABLED = initParam('APP_CONFIG_ENABLED', 'false')
   APP_CONFIG_DIR = /*configDir || */ initParam(
     'APP_CONFIG_DIR',
     path.join(root, APP_CONFIG_FOLDER)
@@ -76,14 +82,17 @@ function load(fileName /*, configDir*/) {
   let extname = path.extname(fileName),
     fileBaseName = path.basename(fileName, extname)
 
-  let baseNames = [fileBaseName].concat(
-    [fileBaseName, APP_CONFIG_ENV].join(SEPARATOR)
-  )
+  let baseNames = [fileBaseName]
 
-  if (NODE_ENV !== 'production' && APP_CONFIG_INSTANCE) {
-    baseNames = baseNames.concat(
-      [fileBaseName, APP_CONFIG_ENV, APP_CONFIG_INSTANCE].join(SEPARATOR)
-    )
+  // 是否开启，灵活控制
+  if (APP_CONFIG_ENABLED.toLowerCase() === 'true') {
+    baseNames.push([fileBaseName, APP_CONFIG_ENV].join(SEPARATOR))
+
+    if (APP_CONFIG_INSTANCE) {
+      baseNames.push(
+        [fileBaseName, APP_CONFIG_ENV, APP_CONFIG_INSTANCE].join(SEPARATOR)
+      )
+    }
   }
 
   let configObj = baseNames.reduce((prev, cur) => {
