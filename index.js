@@ -22,7 +22,7 @@ function getCmdLineArg(searchFor) {
 
 function mergeOptions() {
   let args = Array.prototype.slice.call(arguments)
-  let res = extend(...[{}].concat(args))
+  let res = extend(true, ...[{}].concat(args))
 
   return res
 }
