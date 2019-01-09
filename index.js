@@ -31,7 +31,7 @@ const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray
 
 function mergeOptions() {
   let args = Array.prototype.slice.call(arguments)
-  let res = merge(...args, { arrayMerge: overwriteMerge })
+  let res = merge.all(args, { arrayMerge: overwriteMerge })
 
   return res
 }

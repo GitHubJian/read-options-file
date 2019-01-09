@@ -1,16 +1,13 @@
 module.exports = {
-  a: {
-    b: {
-      c: 1
-    }
+  redis: {
+    open: false
   },
-  a1: {
-    b1: {
-      c1: 2
-    }
-  },
-  a3: {
-    b1: false,
-    a1: [{ a1: 2 }]
+  kv: {
+    pool: [
+      {
+        host: '1.sgsfe.sjs.ted',
+        port: 8088
+      }
+    ]
   }
 }
