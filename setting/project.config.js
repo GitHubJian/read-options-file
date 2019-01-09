@@ -9,5 +9,7 @@ module.exports = {
       c1: 3
     }
   },
-  a2: 3
+  a2: 3,
+  a3: [{ a1: 1 }, { a2: 2 }, { a3: 3 }],
+  a4: true
 }

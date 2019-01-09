@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const extend = require('extend')
+const extend = require('extend-shallow')
 const root = process.cwd()
 
 const APP_CONFIG_FOLDER = 'setting'
@@ -22,7 +22,7 @@ function getCmdLineArg(searchFor) {
 
 function mergeOptions() {
   let args = Array.prototype.slice.call(arguments)
-  let res = extend(true, ...[{}].concat(args))
+  let res = extend(...args)
 
   return res
 }
@@ -90,4 +90,7 @@ function load(fileName /*, configDir*/) {
   return configObj
 }
 
-module.exports = { load }
+module.exports = {
+  load,
+  extend: mergeOptions
+}
